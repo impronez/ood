@@ -127,27 +127,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SimUDuck.cpp" />
+    <ClInclude Include="..\DuckFlyStates\DanceMinuet.h" />
+    <ClInclude Include="..\DuckFlyStates\DanceWaltz.h" />
+    <ClInclude Include="..\DuckFlyStates\DecoyDuck.h" />
+    <ClInclude Include="..\DuckFlyStates\Duck.h" />
+    <ClInclude Include="..\DuckFlyStates\DuckFunctions.h" />
+    <ClInclude Include="..\DuckFlyStates\FlyNoWay.h" />
+    <ClInclude Include="..\DuckFlyStates\FlyWithWings.h" />
+    <ClInclude Include="..\DuckFlyStates\IDanceBehavior.h" />
+    <ClInclude Include="..\DuckFlyStates\IFlyBehavior.h" />
+    <ClInclude Include="..\DuckFlyStates\IQuackBehavior.h" />
+    <ClInclude Include="..\DuckFlyStates\MallardDuck.h" />
+    <ClInclude Include="..\DuckFlyStates\ModelDuck.h" />
+    <ClInclude Include="..\DuckFlyStates\MuteQuackBehavior.h" />
+    <ClInclude Include="..\DuckFlyStates\NotDance.h" />
+    <ClInclude Include="..\DuckFlyStates\QuackBehavior.h" />
+    <ClInclude Include="..\DuckFlyStates\RedheadDuck.h" />
+    <ClInclude Include="..\DuckFlyStates\RubberDuck.h" />
+    <ClInclude Include="..\DuckFlyStates\SqueakBehavior.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DanceMinuet.h" />
-    <ClInclude Include="DanceWaltz.h" />
-    <ClInclude Include="DecoyDuck.h" />
-    <ClInclude Include="Duck.h" />
-    <ClInclude Include="DuckFunctions.h" />
-    <ClInclude Include="FlyNoWay.h" />
-    <ClInclude Include="FlyWithWings.h" />
-    <ClInclude Include="IDanceBehavior.h" />
-    <ClInclude Include="IFlyBehavior.h" />
-    <ClInclude Include="IQuackBehavior.h" />
-    <ClInclude Include="MallardDuck.h" />
-    <ClInclude Include="ModelDuck.h" />
-    <ClInclude Include="MuteQuackBehavior.h" />
-    <ClInclude Include="NotDance.h" />
-    <ClInclude Include="QuackBehavior.h" />
-    <ClInclude Include="RedheadDuck.h" />
-    <ClInclude Include="RubberDuck.h" />
-    <ClInclude Include="SqueakBehavior.h" />
+    <ClCompile Include="..\DuckFlyStates\SimUDuck.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

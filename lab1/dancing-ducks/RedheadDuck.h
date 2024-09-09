@@ -2,9 +2,9 @@
 #define REDHEADDUCK_H
 
 #include "Duck.h"
-#include "FlyWithWings.h"
-#include "QuackBehavior.h"
-#include "DanceMinuet.h"
+#include "Fly/FlyWithWings.h"
+#include "Quack/QuackBehavior.h"
+#include "Dance/DanceMinuet.h"
 
 #include <memory>
 

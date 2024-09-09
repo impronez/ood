@@ -1,7 +1,7 @@
 #ifndef DUCKFUNCTIONS_H
 #define DUCKFUNCTIONS_H
 
-#include "Duck.h"
+#include "Duck/Duck.h"
 
 void DrawDuck(Duck const& duck)
 {

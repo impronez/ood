@@ -2,9 +2,9 @@
 #define MODELDUCK_H
 
 #include "Duck.h"
-#include "FlyNoWay.h"
-#include "QuackBehavior.h"
-#include "NotDance.h"
+#include "Fly/FlyNoWay.h"
+#include "Quack/QuackBehavior.h"
+#include "Dance/NotDance.h"
 
 class ModelDuck : public Duck
 {

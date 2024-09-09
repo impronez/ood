@@ -2,9 +2,9 @@
 #define DECOYDUCK_H
 
 #include "Duck.h"
-#include "FlyNoWay.h"
-#include "MuteQuackBehavior.h"
-#include "NotDance.h"
+#include "Fly/FlyNoWay.h"
+#include "Quack/MuteQuackBehavior.h"
+#include "Dance/NotDance.h"
 #include <iostream>
 #include <memory>
 
