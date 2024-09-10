@@ -83,7 +83,7 @@ TEST_CASE("Test dance method of rubber duck")
 	REQUIRE(output.str().empty());
 }
 
-TEST_CASE("Test dance method of model duck with setting dance")
+TEST_CASE("Test dance method of model duck with setting new dance")
 {
 	ModelDuck modelDuck;
 	std::ostringstream output;
@@ -110,5 +110,4 @@ TEST_CASE("Test dance method of model duck with setting dance")
 			REQUIRE(output.str() == DANCE_WALTZ);
 		}
 	}
-
 }
