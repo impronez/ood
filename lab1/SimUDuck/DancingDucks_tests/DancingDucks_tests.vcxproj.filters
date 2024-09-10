@@ -20,22 +20,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\SimUDuck\DecoyDuck.h">
+    <ClInclude Include="..\DecoyDuck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SimUDuck\MallardDuck.h">
+    <ClInclude Include="..\MallardDuck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SimUDuck\ModelDuck.h">
+    <ClInclude Include="..\ModelDuck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SimUDuck\RedheadDuck.h">
+    <ClInclude Include="..\RedheadDuck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\SimUDuck\RubberDuck.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SimUDuck\DanceWaltz.h">
+    <ClInclude Include="..\RubberDuck.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,11 +1,11 @@
 #define CATCH_CONFIG_MAIN
 #include "../../../../catch/catch.hpp"
-#include "../SimUDuck/DecoyDuck.h"
-#include "../SimUDuck/MallardDuck.h"
-#include "../SimUDuck/ModelDuck.h"
-#include "../SimUDuck/RedheadDuck.h"
-#include "../SimUDuck/RubberDuck.h"
-#include "../SimUDuck/DanceWaltz.h"
+#include "../DecoyDuck.h"
+#include "../MallardDuck.h"
+#include "../ModelDuck.h"
+#include "../RedheadDuck.h"
+#include "../RubberDuck.h"
+#include "../DanceWaltz.h"
 #include <iostream>
 #include <sstream>
 #include <string>

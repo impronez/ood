@@ -142,12 +142,11 @@
     <ClCompile Include="DancingDucks_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\SimUDuck\DanceWaltz.h" />
-    <ClInclude Include="..\SimUDuck\DecoyDuck.h" />
-    <ClInclude Include="..\SimUDuck\MallardDuck.h" />
-    <ClInclude Include="..\SimUDuck\ModelDuck.h" />
-    <ClInclude Include="..\SimUDuck\RedheadDuck.h" />
-    <ClInclude Include="..\SimUDuck\RubberDuck.h" />
+    <ClInclude Include="..\DecoyDuck.h" />
+    <ClInclude Include="..\MallardDuck.h" />
+    <ClInclude Include="..\ModelDuck.h" />
+    <ClInclude Include="..\RedheadDuck.h" />
+    <ClInclude Include="..\RubberDuck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimUDuck", "SimUDuck.vcxproj", "{69350486-47D3-4468-BFDC-62121D055809}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DancingDucks_tests", "..\DancingDucks_tests\DancingDucks_tests.vcxproj", "{CB60F480-543B-402B-AA5B-095F05A07D2A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DancingDucks_tests", "DancingDucks_tests\DancingDucks_tests.vcxproj", "{CB60F480-543B-402B-AA5B-095F05A07D2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
