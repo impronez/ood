@@ -13,18 +13,30 @@
 const std::string DANCE_MINUET = "I'm dance a minuet!!\n";
 const std::string DANCE_WALTZ = "I'm dance a waltz!!\n";
 
+class DanceBehaviorTest : public IDanceBehavior
+{
+public:
+	void Dance() override 
+	{
+		++m_danceCount;
+	}
+
+	int m_danceCount = 0;
+};
+
+// Протестировать метод duck.dance() без перенаправления ввода-вывода 
 TEST_CASE("Test dance method of decoy duck")
 {
 	DecoyDuck decoyDuck;
-	std::ostringstream output;
 
-	std::streambuf* originalCoutBuffer = std::cout.rdbuf(output.rdbuf());
+	auto ptr = std::make_unique<DanceBehaviorTest>();
+	auto tmpPtr = ptr.get();
+
+	decoyDuck.SetDanceBehavior(std::move(ptr));
 
 	decoyDuck.Dance();
 
-	std::cout.rdbuf(originalCoutBuffer);
-
-	REQUIRE(output.str().empty());
+	REQUIRE(tmpPtr->m_danceCount == 1);
 }
 
 TEST_CASE("Test dance method of mallard duck")
