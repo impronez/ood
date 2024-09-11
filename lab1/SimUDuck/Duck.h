@@ -23,12 +23,12 @@ public:
 		SetDanceBehavior(std::move(danceBehavior));
 	}
 
-	void Quack() const
+	void Quack()
 	{
 		m_quackBehavior->Quack();
 	}
 
-	void Swim()
+	void Swim()	const
 	{
 		std::cout << "I'm swimming" << std::endl;
 	}
