@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WeatherStation", "WeatherStation.vcxproj", "{CB12ABF3-9F48-460B-B3F4-90842B35B484}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{CB12ABF3-9F48-460B-B3F4-90842B35B484}.Release|x64.Build.0 = Release|x64
 		{CB12ABF3-9F48-460B-B3F4-90842B35B484}.Release|x86.ActiveCfg = Release|Win32
 		{CB12ABF3-9F48-460B-B3F4-90842B35B484}.Release|x86.Build.0 = Release|Win32
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Debug|x64.ActiveCfg = Debug|x64
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Debug|x64.Build.0 = Debug|x64
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Debug|x86.ActiveCfg = Debug|Win32
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Debug|x86.Build.0 = Debug|Win32
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Release|x64.ActiveCfg = Release|x64
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Release|x64.Build.0 = Release|x64
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Release|x86.ActiveCfg = Release|Win32
+		{1DB13A50-949D-4301-BE45-2AD6ECB1FC50}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
