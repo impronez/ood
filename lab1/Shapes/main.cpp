@@ -1,8 +1,8 @@
 #include <iostream>
 #include <optional>
-#include "Picture.h"
-#include "PictureController.h"
-#include "SVGCanvas.h"
+#include "controller/PictureController.h"
+#include "picture/Picture.h"
+#include "gfx/SVGCanvas.h"
 
 using namespace shapes;
 

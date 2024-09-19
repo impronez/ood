@@ -24,16 +24,16 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Picture.cpp">
+    <ClCompile Include="gfx\SVGCanvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PictureController.cpp">
+    <ClCompile Include="controller\ShapeStrategyCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShapeStrategyCreator.cpp">
+    <ClCompile Include="controller\PictureController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SVGCanvas.cpp">
+    <ClCompile Include="picture\Picture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,44 +41,44 @@
     <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CircleStrategy.h">
+    <ClInclude Include="shapes\CircleStrategy.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="IShapeStrategy.h">
+    <ClInclude Include="shapes\IShapeStrategy.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="LineStrategy.h">
+    <ClInclude Include="shapes\LineStrategy.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="RectangleStrategy.h">
+    <ClInclude Include="shapes\RectangleStrategy.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="Shape.h">
+    <ClInclude Include="shapes\Shape.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="TextStrategy.h">
+    <ClInclude Include="shapes\TextStrategy.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="TriangleStrategy.h">
+    <ClInclude Include="shapes\TriangleStrategy.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
-    <ClInclude Include="ICanvas.h">
+    <ClInclude Include="gfx\Color.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="PictureController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Picture.h">
-      <Filter>Header Files\shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
+    <ClInclude Include="gfx\ICanvas.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="ShapeStrategyCreator.h">
+    <ClInclude Include="gfx\SVGCanvas.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="controller\PictureController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SVGCanvas.h">
+    <ClInclude Include="controller\ShapeStrategyCreator.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="picture\Picture.h">
+      <Filter>Header Files\shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

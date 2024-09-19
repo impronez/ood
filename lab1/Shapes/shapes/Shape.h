@@ -1,5 +1,5 @@
 #pragma once
-#include "IShapeStrategy.h"
+#include "../shapes/IShapeStrategy.h"
 #include <memory>
 
 namespace shapes

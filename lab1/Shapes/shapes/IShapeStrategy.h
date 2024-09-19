@@ -1,5 +1,5 @@
 #pragma once
-#include "ICanvas.h"
+#include "../gfx/ICanvas.h"
 
 namespace shapes
 {

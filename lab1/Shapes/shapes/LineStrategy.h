@@ -1,6 +1,6 @@
 #pragma once
 #include "IShapeStrategy.h"
-#include "Point.h"
+#include "../Point.h"
 
 namespace shapes
 {

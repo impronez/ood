@@ -1,7 +1,7 @@
 #pragma once
-#include "Shape.h"
-#include "IShapeStrategy.h"
-#include "Color.h"
+#include "../shapes/Shape.h"
+#include "../shapes/IShapeStrategy.h"
+#include "../gfx/Color.h"
 #include <map>
 #include <vector>
 

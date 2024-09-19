@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "ICanvas.h"
 #include <sstream>
-#include "Point.h"
+#include "../Point.h"
 
 class SVGCanvas : public gfx::ICanvas
 {

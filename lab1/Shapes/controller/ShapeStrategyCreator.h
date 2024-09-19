@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
 #include <map>
-#include "IShapeStrategy.h"
-#include "CircleStrategy.h"
-#include "LineStrategy.h"
-#include "TextStrategy.h"
-#include "TriangleStrategy.h"
-#include "RectangleStrategy.h"
+#include "../shapes/IShapeStrategy.h"
+#include "../shapes/CircleStrategy.h"
+#include "../shapes/LineStrategy.h"
+#include "../shapes/TextStrategy.h"
+#include "../shapes/TriangleStrategy.h"
+#include "../shapes/RectangleStrategy.h"
 
 namespace shapes
 {

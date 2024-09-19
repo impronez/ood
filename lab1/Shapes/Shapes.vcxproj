@@ -131,27 +131,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Picture.cpp" />
-    <ClCompile Include="PictureController.cpp" />
+    <ClCompile Include="controller\PictureController.cpp" />
+    <ClCompile Include="controller\ShapeStrategyCreator.cpp" />
+    <ClCompile Include="gfx\SVGCanvas.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ShapeStrategyCreator.cpp" />
-    <ClCompile Include="SVGCanvas.cpp" />
+    <ClCompile Include="picture\Picture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CircleStrategy.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="ICanvas.h" />
-    <ClInclude Include="IShapeStrategy.h" />
-    <ClInclude Include="LineStrategy.h" />
-    <ClInclude Include="Picture.h" />
-    <ClInclude Include="PictureController.h" />
+    <ClInclude Include="controller\PictureController.h" />
+    <ClInclude Include="controller\ShapeStrategyCreator.h" />
+    <ClInclude Include="gfx\Color.h" />
+    <ClInclude Include="gfx\ICanvas.h" />
+    <ClInclude Include="gfx\SVGCanvas.h" />
+    <ClInclude Include="picture\Picture.h" />
     <ClInclude Include="Point.h" />
-    <ClInclude Include="RectangleStrategy.h" />
-    <ClInclude Include="Shape.h" />
-    <ClInclude Include="ShapeStrategyCreator.h" />
-    <ClInclude Include="SVGCanvas.h" />
-    <ClInclude Include="TextStrategy.h" />
-    <ClInclude Include="TriangleStrategy.h" />
+    <ClInclude Include="shapes\CircleStrategy.h" />
+    <ClInclude Include="shapes\IShapeStrategy.h" />
+    <ClInclude Include="shapes\LineStrategy.h" />
+    <ClInclude Include="shapes\RectangleStrategy.h" />
+    <ClInclude Include="shapes\Shape.h" />
+    <ClInclude Include="shapes\TextStrategy.h" />
+    <ClInclude Include="shapes\TriangleStrategy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
