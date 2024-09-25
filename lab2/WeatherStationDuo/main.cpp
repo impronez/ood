@@ -1,23 +1,20 @@
 ﻿#include "WeatherData.h"
 #include "Display.h"
-#include "StatsDisplay.h"
 
 int main()
 {
-	CWeatherData wd;
+	CWeatherData wdIn(Location::Inside);
+	CWeatherData wdOut(Location::Outside);
 
-	CDisplay display;
-	wd.RegisterObserver(display, 1);
+	CDisplayDuo display(&wdIn, &wdOut);
+	wdOut.RegisterObserver(display, 2);
+	wdIn.RegisterObserver(display, 2);
 
-	CStatsDisplay statsDisplay;
-	wd.RegisterObserver(statsDisplay, 2);
+	wdIn.SetMeasurements(3, 0.7, 760);
+	wdOut.SetMeasurements(4, 0.8, 761);
 
-	wd.SetMeasurements(3, 0.7, 760);
-	wd.SetMeasurements(4, 0.8, 761);
+	wdIn.RemoveObserver(display);
+	wdOut.RemoveObserver(display);
 
-	wd.RemoveObserver(statsDisplay);
-
-	wd.SetMeasurements(10, 0.8, 761);
-	wd.SetMeasurements(-10, 0.8, 761);
 	return 0;
 }

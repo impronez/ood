@@ -20,19 +20,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Display.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="SensorStats.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="StatsDisplay.h">
+    <ClInclude Include="WeatherData.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="WeatherData.h">
+    <ClInclude Include="Display.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -15,21 +15,21 @@ public:
 			m_maxValue = value;
 		}
 		m_accValue += value;
-		
+
 		++m_countAcc;
 	}
 
-	double Min()
+	double GetMin()
 	{
 		return m_minValue;
 	}
 
-	double Max()
+	double GetMax()
 	{
 		return m_maxValue;
 	}
 
-	double Average()
+	double GetAverage()
 	{
 		return m_accValue / m_countAcc;
 	}
