@@ -8,9 +8,9 @@ private:
 
 	void ShowStats(SensorStats stats, std::string sensorName)
 	{
-		std::cout << "Max " << sensorName << ": " << stats.GetMax() << std::endl;
-		std::cout << "Min " << sensorName << ": " << stats.GetMin() << std::endl;
-		std::cout << "Average " << sensorName << ": " << stats.GetAverage() << std::endl;
+		std::cout << "Max " << sensorName << ": " << stats.Max() << std::endl;
+		std::cout << "Min " << sensorName << ": " << stats.Min() << std::endl;
+		std::cout << "Average " << sensorName << ": " << stats.Average() << std::endl;
 		std::cout << "----------------" << std::endl;
 	}
 

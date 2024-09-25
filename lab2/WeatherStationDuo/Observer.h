@@ -1,8 +1,8 @@
 ﻿#pragma once
+#include <set>
 #include <functional>
 #include <algorithm>
 #include <map>
-#include <unordered_set>
 
 /*
 Шаблонный интерфейс IObserver. Его должен реализовывать класс, 
@@ -41,35 +41,28 @@ public:
 
 	void RegisterObserver(ObserverType & observer, unsigned priority) override
 	{
-		if (!m_priorityToObservers.contains(priority))
-		{
-			m_priorityToObservers.insert({ priority, {} });
-		}
-
-		m_priorityToObservers.at(priority).insert(&observer);
+		m_observers.emplace(priority, &observer);
 	}
 
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
 
-		auto copyObservers = m_priorityToObservers;
+		auto copyObservers = m_observers;
 		for (auto it = copyObservers.rbegin(); it != copyObservers.rend(); ++it)
 		{
-			for (auto& observer : it->second)
-			{
-				observer->Update(data);
-			}
+			it->second->Update(data);
 		}
 	}
 
-	void RemoveObserver(ObserverType& observer)
+	void RemoveObserver(ObserverType& observer) override
 	{
-		for (auto& [priority, observers] : m_priorityToObservers)
+		for (auto it = m_observers.begin(); it != m_observers.end(); ++it)
 		{
-			if (observers.erase(&observer) > 0)
+			if (it->second == &observer)
 			{
-				return;
+				m_observers.erase(it);
+				break;
 			}
 		}
 	}
@@ -80,5 +73,5 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::map<unsigned, std::unordered_set<ObserverType*>> m_priorityToObservers;
+	std::multimap<unsigned, ObserverType*> m_observers;
 };
