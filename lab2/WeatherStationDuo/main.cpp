@@ -3,18 +3,18 @@
 
 int main()
 {
-	CWeatherData wdIn(Location::Inside);
-	CWeatherData wdOut(Location::Outside);
+	CWeatherData wdIn;
+	CWeatherData wdOut;
 
-	CDisplayDuo display(&wdIn, &wdOut);
-	wdOut.RegisterObserver(display, 2);
-	wdIn.RegisterObserver(display, 2);
+	auto displayPtr = std::make_shared<CDisplayDuo>(CDisplayDuo(&wdIn, &wdOut));
+	wdOut.RegisterObserver(displayPtr, 2);
+	wdIn.RegisterObserver(displayPtr, 2);
 
 	wdIn.SetMeasurements(3, 0.7, 760);
 	wdOut.SetMeasurements(4, 0.8, 761);
 
-	wdIn.RemoveObserver(display);
-	wdOut.RemoveObserver(display);
+	wdIn.RemoveObserver(displayPtr);
+	wdOut.RemoveObserver(displayPtr);
 
 	return 0;
 }

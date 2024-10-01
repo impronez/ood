@@ -17,10 +17,10 @@ public:
 		m_weatherInfoOut(weatherInfoOut	)
 	{}
 private:
-	void Update(SWeatherInfo const& data) override
+	void Update(SWeatherInfo const& data, const CObservable<SWeatherInfo>* observable) override
 	{
-		std::string location = data.location == Location::Inside ? INSIDE
-			: data.location == Location::Outside ? OUTSIDE
+		std::string location = observable == m_weatherInfoIn ? INSIDE
+			: observable == m_weatherInfoOut ? OUTSIDE
 			: UNDEFINED;
 
 		std::cout << "Current Location " << location << std::endl;

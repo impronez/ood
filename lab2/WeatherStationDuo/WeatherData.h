@@ -1,32 +1,17 @@
 ﻿#pragma once
 #include "Observer.h"
 
-enum class Location
-{
-	Inside,
-	Outside
-};
-
+// сделать так, чтобы можно было добавлять произвольное количество помещений (идентификатор)
 struct SWeatherInfo
 {
 	double temperature = 0;
 	double humidity = 0;
 	double pressure = 0;
-	Location location;
 };
 
 class CWeatherData : public CObservable<SWeatherInfo>
 {
 public:
-	CWeatherData(Location location)
-		: m_location(location)
-	{}
-
-	Location GetLocation() const
-	{
-		return m_location;
-	}
-
 	// Температура в градусах Цельсия
 	double GetTemperature() const
 	{
@@ -63,13 +48,10 @@ protected:
 		info.temperature = GetTemperature();
 		info.humidity = GetHumidity();
 		info.pressure = GetPressure();
-		info.location = GetLocation();
 		return info;
 	}
 private:
 	double m_temperature = 0.0;
 	double m_humidity = 0.0;
 	double m_pressure = 760.0;
-
-	Location m_location;
 };

@@ -1,8 +1,9 @@
 ﻿#pragma once
-#include <functional>
-#include <algorithm>
+
 #include <map>
+#include <unordered_map>
 #include <unordered_set>
+#include <memory>
 
 /*
 Шаблонный интерфейс IObserver. Его должен реализовывать класс,
@@ -22,9 +23,9 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T>& observer, unsigned priority) = 0;
+	virtual void RegisterObserver(std::shared_ptr<IObserver<T>> observer, unsigned priority) = 0;
 	virtual void NotifyObservers() = 0;
-	virtual void RemoveObserver(IObserver<T>& observer) = 0;
+	virtual void RemoveObserver(std::shared_ptr<IObserver<T>> observer) = 0;
 };
 
 // Реализация интерфейса IObservable
@@ -33,15 +34,12 @@ class CObservable : public IObservable<T>
 {
 public:
 	typedef IObserver<T> ObserverType;
+	typedef std::shared_ptr<ObserverType> ObserverPtr;
 
-	void RegisterObserver(ObserverType& observer, unsigned priority) override
+	void RegisterObserver(std::shared_ptr<ObserverType> observer, unsigned priority) override
 	{
-		if (!m_priorityToObservers.contains(priority))
-		{
-			m_priorityToObservers.insert({ priority, {} });
-		}
-
-		m_priorityToObservers.at(priority).insert(&observer);
+		m_priorityToObservers[priority].insert(observer);
+		m_observerToPriority[observer] = priority;
 	}
 
 	void NotifyObservers() override
@@ -53,19 +51,26 @@ public:
 		{
 			for (auto& observer : it->second)
 			{
-				observer->Update(data);
+				observer->Update(data, this);
 			}
 		}
 	}
 
-	void RemoveObserver(ObserverType& observer)
+	void RemoveObserver(std::shared_ptr<ObserverType> observer)
 	{
-		for (auto& [priority, observers] : m_priorityToObservers)
+		auto it = m_observerToPriority.find(observer);
+
+		if (it != m_observerToPriority.end())
 		{
-			if (observers.erase(&observer) > 0)
+			unsigned priority = it->second;
+			auto& observers = m_priorityToObservers[priority];
+
+			if (observers.contains(observer))
 			{
-				return;
+				observers.erase(observer);
 			}
+
+			m_observerToPriority.erase(it);
 		}
 	}
 
@@ -75,13 +80,14 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::map<unsigned, std::unordered_set<ObserverType*>> m_priorityToObservers;
+	std::map<unsigned, std::unordered_set<ObserverPtr>> m_priorityToObservers;
+	std::unordered_map<std::shared_ptr<ObserverType>, unsigned> m_observerToPriority;
 };
 
 template <typename T>
 class IObserver
 {
 public:
-	virtual void Update(T const& data) = 0;
+	virtual void Update(T const& data, const CObservable<T>* observable) = 0;
 	virtual ~IObserver() = default;
 };

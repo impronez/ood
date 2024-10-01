@@ -136,7 +136,8 @@
   <ItemGroup>
     <ClInclude Include="Display.h" />
     <ClInclude Include="Observer.h" />
-    <ClInclude Include="SensorStats.h" />
+    <ClInclude Include="CStats.h" />
+    <ClInclude Include="StatsDisplay.h" />
     <ClInclude Include="WeatherData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
