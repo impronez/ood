@@ -20,9 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Observer.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="..\WeatherData.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>

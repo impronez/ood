@@ -19,17 +19,17 @@ public:
 		++m_countAcc;
 	}
 
-	double GetMin()
+	double GetMin() const
 	{
 		return m_minValue;
 	}
 
-	double GetMax()
+	double GetMax() const
 	{
 		return m_maxValue;
 	}
 
-	double GetAverage()
+	double GetAverage() const
 	{
 		return m_accValue / m_countAcc;
 	}

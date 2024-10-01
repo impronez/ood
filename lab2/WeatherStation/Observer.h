@@ -1,14 +1,15 @@
-п»ї#pragma once
-#include <functional>
-#include <algorithm>
+#pragma once
+
 #include <map>
+#include <unordered_map>
 #include <unordered_set>
+#include <memory>
 
 /*
-РЁР°Р±Р»РѕРЅРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ IObserver. Р•РіРѕ РґРѕР»Р¶РµРЅ СЂРµР°Р»РёР·РѕРІС‹РІР°С‚СЊ РєР»Р°СЃСЃ, 
-Р¶РµР»Р°СЋС‰РёР№ РїРѕР»СѓС‡Р°С‚СЊ СѓРІРµРґРѕРјР»РµРЅРёСЏ РѕС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµРіРѕ IObservable
-РџР°СЂР°РјРµС‚СЂРѕРј С€Р°Р±Р»РѕРЅР° СЏРІР»СЏРµС‚СЃСЏ С‚РёРї Р°СЂРіСѓРјРµРЅС‚Р°,
-РїРµСЂРµРґР°РІР°РµРјРѕРіРѕ РќР°Р±Р»СЋРґР°С‚РµР»СЋ РІ РјРµС‚РѕРґ Update
+Шаблонный интерфейс IObserver. Его должен реализовывать класс,
+желающий получать уведомления от соответствующего IObservable
+Параметром шаблона является тип аргумента,
+передаваемого Наблюдателю в метод Update
 */
 template <typename T>
 class IObserver
@@ -19,34 +20,31 @@ public:
 };
 
 /*
-РЁР°Р±Р»РѕРЅРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ IObservable. РџРѕР·РІРѕР»СЏРµС‚ РїРѕРґРїРёСЃР°С‚СЊСЃСЏ Рё РѕС‚РїРёСЃР°С‚СЊСЃСЏ РЅР° РѕРїРѕРІРµС‰РµРЅРёСЏ, Р° С‚Р°РєР¶Рµ
-РёРЅРёС†РёРёСЂРѕРІР°С‚СЊ СЂР°СЃСЃС‹Р»РєСѓ СѓРІРµРґРѕРјР»РµРЅРёР№ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рј РЅР°Р±Р»СЋРґР°С‚РµР»СЏРј.
+Шаблонный интерфейс IObservable. Позволяет подписаться и отписаться на оповещения, а также
+инициировать рассылку уведомлений зарегистрированным наблюдателям.
 */
 template <typename T>
 class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T> & observer, unsigned priority) = 0;
+	virtual void RegisterObserver(std::shared_ptr<IObserver<T>> observer, unsigned priority) = 0;
 	virtual void NotifyObservers() = 0;
-	virtual void RemoveObserver(IObserver<T> & observer) = 0;
+	virtual void RemoveObserver(std::shared_ptr<IObserver<T>> observer) = 0;
 };
 
-// Р РµР°Р»РёР·Р°С†РёСЏ РёРЅС‚РµСЂС„РµР№СЃР° IObservable
+// Реализация интерфейса IObservable
 template <class T>
 class CObservable : public IObservable<T>
 {
 public:
 	typedef IObserver<T> ObserverType;
+	typedef std::shared_ptr<ObserverType> ObserverPtr;
 
-	void RegisterObserver(ObserverType & observer, unsigned priority) override
+	void RegisterObserver(std::shared_ptr<ObserverType> observer, unsigned priority) override
 	{
-		if (!m_priorityToObservers.contains(priority))
-		{
-			m_priorityToObservers.insert({ priority, {} });
-		}
-
-		m_priorityToObservers.at(priority).insert(&observer);
+		m_priorityToObservers[priority].insert(observer);
+		m_observerToPriority[observer] = priority;
 	}
 
 	void NotifyObservers() override
@@ -63,22 +61,30 @@ public:
 		}
 	}
 
-	void RemoveObserver(ObserverType& observer)
+	void RemoveObserver(std::shared_ptr<ObserverType> observer)
 	{
-		for (auto& [priority, observers] : m_priorityToObservers)
+		auto it = m_observerToPriority.find(observer);
+
+		if (it != m_observerToPriority.end())
 		{
-			if (observers.erase(&observer) > 0)
+			unsigned priority = it->second;
+			auto& observers = m_priorityToObservers[priority];
+
+			if (observers.contains(observer))
 			{
-				return;
+				observers.erase(observer);
 			}
+
+			m_observerToPriority.erase(it);
 		}
 	}
 
 protected:
-	// РљР»Р°СЃСЃС‹-РЅР°СЃР»РµРґРЅРёРєРё РґРѕР»Р¶РЅС‹ РїРµСЂРµРіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Р№ РјРµС‚РѕРґ, 
-	// РІ РєРѕС‚РѕСЂРѕРј РІРѕР·РІСЂР°С‰Р°С‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± РёР·РјРµРЅРµРЅРёСЏС… РІ РѕР±СЉРµРєС‚Рµ
+	// Классы-наследники должны перегрузить данный метод, 
+	// в котором возвращать информацию об изменениях в объекте
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::map<unsigned, std::unordered_set<ObserverType*>> m_priorityToObservers;
+	std::map<unsigned, std::unordered_set<ObserverPtr>> m_priorityToObservers;
+	std::unordered_map<std::shared_ptr<ObserverType>, unsigned> m_observerToPriority;
 };
