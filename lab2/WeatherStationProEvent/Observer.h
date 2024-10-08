@@ -2,7 +2,7 @@
 
 #include <map>
 #include <unordered_map>
-#include <unordered_set>
+#include <set>
 #include <memory>
 
 const unsigned DEFAULT_PRIORITY = 5;
@@ -25,9 +25,27 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(std::shared_ptr<IObserver<T, EventType>> observer, EventType eventType, unsigned priority) = 0;
+	virtual void RegisterObserver(const std::shared_ptr<IObserver<T, EventType>>& observer, EventType eventType, unsigned priority) = 0;
 	virtual void NotifyObservers(EventType eventType) = 0;
-	virtual void RemoveObserver(std::shared_ptr<IObserver<T, EventType>> observer, EventType eventType) = 0;
+	virtual void RemoveObserver(const std::shared_ptr<IObserver<T, EventType>>& observer, EventType eventType) = 0;
+};
+
+template <class T, class EventType>
+struct WeakPtrComparator
+{
+	bool operator()(const std::weak_ptr<IObserver<T,EventType>>& wp1,
+		const std::weak_ptr<IObserver<T,EventType>>& wp2) const
+	{
+	//owner before
+		auto sp1 = wp1.lock();
+		auto sp2 = wp2.lock();
+
+		if (sp1 && sp2)
+		{
+			return sp1 < sp2;
+		}
+		return !sp1 && sp2;
+	}
 };
 
 // Реализация интерфейса IObservable
@@ -36,9 +54,9 @@ class CObservable : public IObservable<T, EventType>
 {
 public:
 	typedef IObserver<T, EventType> ObserverType;
-	typedef std::shared_ptr<ObserverType> ObserverPtr;
+	typedef std::weak_ptr<ObserverType> ObserverPtr;
 
-	void RegisterObserver(std::shared_ptr<ObserverType> observer,
+	void RegisterObserver(const std::shared_ptr<ObserverType>& observer,
 		EventType eventType,
 		unsigned priority = DEFAULT_PRIORITY) override
 	{
@@ -55,12 +73,20 @@ public:
 		{
 			for (auto& observer : observers)
 			{
-				observer->Update(data, eventType);
+				if (auto ptr = observer.lock())
+				{
+					ptr.get()->Update(data, eventType);
+				}
+				else
+				{
+					m_priorityToObservers[eventType][priority].erase(ptr);
+					m_observerToPriority.erase(ptr);
+				}
 			}
 		}
 	}
 
-	void RemoveObserver(std::shared_ptr<ObserverType> observer, EventType eventType)
+	void RemoveObserver(const std::shared_ptr<ObserverType>& observer, EventType eventType)
 	{
 		auto it = m_observerToPriority.find(observer);
 
@@ -84,7 +110,7 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::map<EventType, std::map<unsigned, std::unordered_set<ObserverPtr>>> m_priorityToObservers;
+	std::map<EventType, std::map<unsigned, std::set<ObserverPtr, WeakPtrComparator<T, EventType>>>> m_priorityToObservers;
 	std::unordered_map<std::shared_ptr<ObserverType>, unsigned> m_observerToPriority;
 };
 

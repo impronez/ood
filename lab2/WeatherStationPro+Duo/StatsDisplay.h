@@ -26,6 +26,7 @@ private:
 		std::cout << "Min Wind Speed: " << stats.GetMinSpeed() << std::endl;
 		std::cout << "Average Wind Speed: " << stats.GetAverageSpeed() << std::endl;
 		std::cout << "Average Wind Direction: " << stats.GetAverageDirection() << std::endl;
+		std::cout << "----------------" << std::endl;
 	}
 
 	void Update(SWeatherInfo const& data, const CObservable<SWeatherInfo>* observable) override

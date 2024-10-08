@@ -42,7 +42,6 @@ TEST_CASE("check display duo")
 	wdOut.SetMeasurements(1, 1, 771);
 	REQUIRE(displayPtr.get()->locationOfLastSensor == "Outside");
 
-
 	wdIn.RemoveObserver(displayPtr);
 	wdOut.RemoveObserver(displayPtr);
 }

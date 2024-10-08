@@ -17,10 +17,10 @@ int main()
 	wd.SetMeasurements(4, 0.8, 761);
 
 	wd.RemoveObserver(statsDisplayPtr);
-	std::cout << "\nObserver removed!\n\n";
 
 	wd.SetMeasurements(10, 0.8, 761);
 
 	wd.RemoveObserver(displayPtr);
+
 	return 0;
 }

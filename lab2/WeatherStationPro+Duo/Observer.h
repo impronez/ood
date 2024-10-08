@@ -2,7 +2,7 @@
 
 #include <map>
 #include <unordered_map>
-#include <unordered_set>
+#include <set>
 #include <memory>
 
 /*
@@ -23,9 +23,25 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(std::shared_ptr<IObserver<T>> observer, unsigned priority) = 0;
+	virtual void RegisterObserver(const std::shared_ptr<IObserver<T>>& observer, unsigned priority) = 0;
 	virtual void NotifyObservers() = 0;
-	virtual void RemoveObserver(std::shared_ptr<IObserver<T>> observer) = 0;
+	virtual void RemoveObserver(const std::shared_ptr<IObserver<T>>& observer) = 0;
+};
+
+template <class T>
+struct WeakPtrComparator
+{
+	bool operator()(const std::weak_ptr<IObserver<T>>& wp1, const std::weak_ptr<IObserver<T>>& wp2) const
+	{
+		auto sp1 = wp1.lock();
+		auto sp2 = wp2.lock();
+
+		if (sp1 && sp2)
+		{
+			return sp1 < sp2;
+		}
+		return !sp1 && sp2;
+	}
 };
 
 // Реализация интерфейса IObservable
@@ -34,9 +50,9 @@ class CObservable : public IObservable<T>
 {
 public:
 	typedef IObserver<T> ObserverType;
-	typedef std::shared_ptr<ObserverType> ObserverPtr;
+	typedef std::weak_ptr<ObserverType> ObserverPtr;
 
-	void RegisterObserver(std::shared_ptr<ObserverType> observer, unsigned priority) override
+	void RegisterObserver(const std::shared_ptr<ObserverType>& observer, unsigned priority) override
 	{
 		m_priorityToObservers[priority].insert(observer);
 		m_observerToPriority[observer] = priority;
@@ -51,12 +67,21 @@ public:
 		{
 			for (auto& observer : it->second)
 			{
-				observer->Update(data, this);
+				if (auto ptr = observer.lock())
+				{
+					ptr.get()->Update(data, this);
+				}
+				else
+				{
+					unsigned priority = it->first;
+					m_priorityToObservers[priority].erase(ptr);
+					m_observerToPriority.erase(ptr);
+				}
 			}
 		}
 	}
 
-	void RemoveObserver(std::shared_ptr<ObserverType> observer)
+	void RemoveObserver(const std::shared_ptr<ObserverType>& observer)
 	{
 		auto it = m_observerToPriority.find(observer);
 
@@ -80,7 +105,7 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::map<unsigned, std::unordered_set<ObserverPtr>> m_priorityToObservers;
+	std::map<unsigned, std::set<ObserverPtr, WeakPtrComparator<T>>> m_priorityToObservers;
 	std::unordered_map<std::shared_ptr<ObserverType>, unsigned> m_observerToPriority;
 };
 
