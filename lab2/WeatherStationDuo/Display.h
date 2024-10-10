@@ -17,7 +17,7 @@ public:
 		m_weatherInfoOut(weatherInfoOut	)
 	{}
 private:
-	void Update(SWeatherInfo const& data, const CObservable<SWeatherInfo>* observable) override
+	void Update(SWeatherInfo const& data, const IObservable<SWeatherInfo>* observable) override
 	{
 		std::string location = observable == m_weatherInfoIn ? INSIDE
 			: observable == m_weatherInfoOut ? OUTSIDE
