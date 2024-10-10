@@ -7,20 +7,20 @@ int main()
 {
 	CWeatherData wd;
 
-	auto displayPtr = std::make_shared<CDisplay>(CDisplay());
-	wd.RegisterObserver(displayPtr, 2);
+	CDisplay display(wd);
+	wd.RegisterObserver(display, 2);
 
-	auto statsDisplayPtr = std::make_shared<CStatsDisplay>(CStatsDisplay());
-	wd.RegisterObserver(statsDisplayPtr, 2);
+	CStatsDisplay statsDisplay(wd);
+	wd.RegisterObserver(statsDisplay, 2);
 
 	wd.SetMeasurements(3, 0.7, 760);
 	wd.SetMeasurements(4, 0.8, 761);
 
-	wd.RemoveObserver(statsDisplayPtr);
+	wd.RemoveObserver(statsDisplay);
 
 	wd.SetMeasurements(10, 0.8, 761);
 
-	wd.RemoveObserver(displayPtr);
+	wd.RemoveObserver(display);
 
 	return 0;
 }

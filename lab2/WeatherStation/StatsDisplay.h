@@ -4,6 +4,14 @@
 
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
+public:
+	CStatsDisplay(IObservable<SWeatherInfo>& observable)
+		: m_observable(observable)
+	{}
+	~CStatsDisplay()
+	{
+		m_observable.RemoveObserver(*this);
+	}
 private:
 
 	void ShowStats(SensorStats stats, std::string sensorName)
@@ -28,4 +36,6 @@ private:
 	SensorStats m_temperatureStats;
 	SensorStats m_humidityStats;
 	SensorStats m_pressureStats;
+
+	IObservable<SWeatherInfo>& m_observable;
 };

@@ -1,8 +1,9 @@
 #pragma once
 
-#include <map>
-#include <unordered_map>
 #include <set>
+#include <functional>
+#include <unordered_set>
+#include <map>
 #include <memory>
 
 /*
@@ -28,25 +29,9 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(const std::shared_ptr<IObserver<T>>& observer, unsigned priority) = 0;
+	virtual void RegisterObserver(IObserver<T>& observer, int priority) = 0;
 	virtual void NotifyObservers() = 0;
-	virtual void RemoveObserver(const std::shared_ptr<IObserver<T>>& observer) = 0;
-};
-
-template <class T>
-struct WeakPtrComparator
-{
-	bool operator()(const std::weak_ptr<IObserver<T>>& wp1, const std::weak_ptr<IObserver<T>>& wp2) const
-	{
-		auto sp1 = wp1.lock();
-		auto sp2 = wp2.lock();
-
-		if (sp1 && sp2)
-		{
-			return sp1 < sp2; 
-		}
-		return !sp1 && sp2;
-	}
+	virtual void RemoveObserver(IObserver<T>& observer) = 0;
 };
 
 // Реализация интерфейса IObservable
@@ -55,48 +40,40 @@ class CObservable : public IObservable<T>
 {
 public:
 	typedef IObserver<T> ObserverType;
-	typedef std::weak_ptr<ObserverType> ObserverPtr;
 
-	void RegisterObserver(const std::shared_ptr<ObserverType>& observer, unsigned priority) override
+	void RegisterObserver(ObserverType& observer, int priority) override
 	{
-		m_priorityToObservers[priority].insert(observer);
-		m_observerToPriority[observer] = priority;
-
+		m_priorityToObservers[priority].insert(&observer);
+		m_observerToPriority[&observer] = priority;
 	}
 
 	void NotifyObservers() override
 	{
 		T data = GetChangedData();
+		auto priorityToObserversCopy = m_priorityToObservers;
 
-		auto copyObservers = m_priorityToObservers;
-		for (auto it = copyObservers.rbegin(); it != copyObservers.rend(); ++it)
+		for (auto it = priorityToObserversCopy.rbegin(); it != priorityToObserversCopy.rend(); ++it)
 		{
 			for (auto& observer : it->second)
 			{
-				if (auto ptr = observer.lock())
-				{
-					ptr.get()->Update(data);
-				}
-				else
-				{
-					unsigned priority = it->first;
-					m_priorityToObservers[priority].erase(ptr);
-					m_observerToPriority.erase(ptr);
-				}
+				observer->Update(data);
 			}
 		}
 	}
 
-	void RemoveObserver(const std::shared_ptr<ObserverType>& observer)
+	void RemoveObserver(ObserverType& observer) override
 	{
-		auto it = m_observerToPriority.find(observer);
+		auto it = m_observerToPriority.find(&observer);
 
 		if (it != m_observerToPriority.end())
 		{
-			unsigned priority = it->second;
+			int priority = it->second;
 			auto& observers = m_priorityToObservers[priority];
 
-			observers.erase(observer);
+			if (observers.contains(&observer))
+			{
+				observers.erase(&observer);
+			}
 
 			m_observerToPriority.erase(it);
 		}
@@ -105,9 +82,9 @@ public:
 protected:
 	// Классы-наследники должны перегрузить данный метод, 
 	// в котором возвращать информацию об изменениях в объекте
-	virtual T GetChangedData() const = 0;
+	virtual T GetChangedData()const = 0;
 
 private:
-	std::map<unsigned, std::set<ObserverPtr, WeakPtrComparator<T>>> m_priorityToObservers;
-	std::unordered_map<std::shared_ptr<ObserverType>, unsigned> m_observerToPriority;
+	std::map<int, std::unordered_set<ObserverType*>> m_priorityToObservers;
+	std::unordered_map<ObserverType*, int> m_observerToPriority;
 };
