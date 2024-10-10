@@ -29,7 +29,7 @@ private:
 		std::cout << "----------------" << std::endl;
 	}
 
-	void Update(SWeatherInfo const& data, const CObservable<SWeatherInfo>* observable) override
+	void Update(SWeatherInfo const& data, const IObservable<SWeatherInfo>* observable) override
 	{
 		std::string location = observable == m_weatherInfoIn ? "Inside"
 			: observable == m_weatherInfoOut ? "Outside"
