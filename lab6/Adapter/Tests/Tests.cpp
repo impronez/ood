@@ -12,7 +12,7 @@
 namespace mgl = modern_graphics_lib;
 namespace gl = graphics_lib;
 
-std::string DrawWithoutAdapter(const std::vector<mgl::CPoint>& points)
+std::string DrawWithoutAdapter(const std::vector<Point>& points)
 {
 	std::stringstream strm;
 	mgl::CModernGraphicsRenderer renderer(strm);
@@ -37,7 +37,7 @@ std::string DrawWithoutAdapter(const std::vector<mgl::CPoint>& points)
 	return strm.str();
 }
 
-void DrawWithAdapter(mgl::CModernGraphicsRenderer& renderer, graphics_lib::ICanvas& adapter, const std::vector<mgl::CPoint>& points)
+void DrawWithAdapter(mgl::CModernGraphicsRenderer& renderer, graphics_lib::ICanvas& adapter, const std::vector<Point>& points)
 {
 	renderer.BeginDraw();
 
@@ -53,7 +53,7 @@ void DrawWithAdapter(mgl::CModernGraphicsRenderer& renderer, graphics_lib::ICanv
 	renderer.EndDraw();
 }
 
-std::string DrawWithObjectAdapter(const std::vector<mgl::CPoint>& points)
+std::string DrawWithObjectAdapter(const std::vector<Point>& points)
 {
 	std::stringstream strm;
 	mgl::CModernGraphicsRenderer renderer(strm);
@@ -64,7 +64,7 @@ std::string DrawWithObjectAdapter(const std::vector<mgl::CPoint>& points)
 	return strm.str();
 }
 
-std::string DrawShapeWithClassAdapter(const std::vector<mgl::CPoint>& points)
+std::string DrawShapeWithClassAdapter(const std::vector<Point>& points)
 {
 	std::stringstream strm;
 	ModernGraphicsClassAdapter adapter(strm);
@@ -87,9 +87,9 @@ TEST_CASE("draw triangle with object adapter")
 {
 	auto triangle =
 	{
-		mgl::CPoint(10, 15),
-		mgl::CPoint(100, 200),
-		mgl::CPoint(150, 250),
+		Point(10, 15),
+		Point(100, 200),
+		Point(150, 250),
 	};
 
 	const auto originalShape = DrawWithoutAdapter(triangle);
@@ -111,9 +111,9 @@ TEST_CASE("draw triangle with class adapter")
 {
 	auto triangle =
 	{
-		mgl::CPoint(10, 15),
-		mgl::CPoint(100, 200),
-		mgl::CPoint(150, 250),
+		Point(10, 15),
+		Point(100, 200),
+		Point(150, 250),
 	};
 
 	const auto originalShape = DrawWithoutAdapter(triangle);

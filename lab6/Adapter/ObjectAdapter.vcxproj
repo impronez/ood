@@ -136,6 +136,7 @@
     <ClInclude Include="ModernGraphicsAdapter.h" />
     <ClInclude Include="ModernGraphicsClassAdapter.h" />
     <ClInclude Include="modern_graphics_lib.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="shape_drawing_lib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

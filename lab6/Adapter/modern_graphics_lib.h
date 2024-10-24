@@ -1,19 +1,12 @@
 #pragma once
 #include <iostream>
 #include <format>
+#include "Point.h"
 
 // Пространство имен современной графической библиотеки (недоступно для изменения)
 namespace modern_graphics_lib
 {
     using namespace std;
-
-    class CPoint
-    {
-    public:
-        CPoint(int x, int y) :x(x), y(y) {}
-        int x;
-        int y;
-    };
 
     // Класс для современного рисования графики
     class CModernGraphicsRenderer
@@ -44,7 +37,7 @@ namespace modern_graphics_lib
         }
 
         // Выполняет рисование линии
-        void DrawLine(const CPoint& start, const CPoint& end)
+        void DrawLine(const Point& start, const Point& end)
         {
             if (!m_drawing)
             {

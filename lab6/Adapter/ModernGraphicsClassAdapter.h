@@ -18,7 +18,7 @@ public:
 
 	void LineTo(int x, int y) override
 	{
-		modern_graphics_lib::CPoint end(x, y);
+		Point end(x, y);
 
 		DrawLine(m_start, end);
 
@@ -27,5 +27,5 @@ public:
 	}
 
 private:
-	modern_graphics_lib::CPoint m_start;
+	Point m_start;
 };
