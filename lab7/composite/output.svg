@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+<line x1="300.000000" y1="300.000000" x2="800.000000" y2="300.000000" style="stroke:#000000;stroke-width:4" />
+<line x1="800.000000" y1="300.000000" x2="800.000000" y2="800.000000" style="stroke:#000000;stroke-width:4" />
+<line x1="800.000000" y1="800.000000" x2="300.000000" y2="800.000000" style="stroke:#000000;stroke-width:4" />
+<line x1="300.000000" y1="800.000000" x2="300.000000" y2="300.000000" style="stroke:#000000;stroke-width:4" />
+<line x1="250.000000" y1="300.000000" x2="550.000000" y2="150.000000" style="stroke:#000000;stroke-width:4" />
+<line x1="550.000000" y1="150.000000" x2="850.000000" y2="300.000000" style="stroke:#000000;stroke-width:4" />
+<line x1="850.000000" y1="300.000000" x2="250.000000" y2="300.000000" style="stroke:#000000;stroke-width:4" />
+<ellipse cx="550.000000" cy="550.000000" rx="100.000000" ry="100.000000" style="stroke:#ff0000;stroke-width:4; fill:none;" />
+<line x1="700.000000" y1="550.000000" x2="656.066017" y2="656.066017" style="stroke:#00ff00;stroke-width:4" />
+<line x1="656.066017" y1="656.066017" x2="550.000000" y2="700.000000" style="stroke:#00ff00;stroke-width:4" />
+<line x1="550.000000" y1="700.000000" x2="443.933983" y2="656.066017" style="stroke:#00ff00;stroke-width:4" />
+<line x1="443.933983" y1="656.066017" x2="400.000000" y2="550.000000" style="stroke:#00ff00;stroke-width:4" />
+<line x1="400.000000" y1="550.000000" x2="443.933983" y2="443.933983" style="stroke:#00ff00;stroke-width:4" />
+<line x1="443.933983" y1="443.933983" x2="550.000000" y2="400.000000" style="stroke:#00ff00;stroke-width:4" />
+<line x1="550.000000" y1="400.000000" x2="656.066017" y2="443.933983" style="stroke:#00ff00;stroke-width:4" />
+<line x1="656.066017" y1="443.933983" x2="700.000000" y2="550.000000" style="stroke:#00ff00;stroke-width:4" />
+<line x1="700.000000" y1="550.000000" x2="700.000000" y2="550.000000" style="stroke:#00ff00;stroke-width:4" />
+<ellipse cx="1300.000000" cy="200.000000" rx="70.000000" ry="70.000000" style="stroke:#ffff00;stroke-width:4; fill:none;" />
+<ellipse cx="550" cy="950" rx="50" ry="50"  fill="transparent" stroke="rgb(255, 255, 255)" stroke-width="1"/>
+</svg>
