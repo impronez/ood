@@ -2,7 +2,7 @@
 
 namespace with_state
 {
-    struct IGumballMachine // контекст
+    struct IGumballMachine
     {
         virtual void ReleaseBall() = 0;
         [[nodiscard]] virtual unsigned GetBallCount() const = 0;
