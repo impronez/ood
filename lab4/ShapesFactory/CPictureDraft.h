@@ -13,6 +13,21 @@ public:
         m_shapes.push_back(std::move(shape));
     }
 
+    size_t GetShapesCount() const
+    {
+        return m_shapes.size();
+    }
+
+    CShape& GetShape(const size_t index) const
+    {
+        if (index >= GetShapesCount())
+        {
+            throw std::range_error("Error, shapes index out of range");
+        }
+
+        return *m_shapes[index];
+    }
+
     Storage::iterator begin() {
         return m_shapes.begin();
     }
