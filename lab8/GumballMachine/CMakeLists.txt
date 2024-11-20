@@ -24,7 +24,8 @@ add_executable(GumballMachine main.cpp
         Machine/CGumballMachine.h)
 
 add_executable(${PROJECT_NAME}_test
-        test/main.cpp
+        test/StatesTest.cpp
+        test/MachineTest.cpp
         test/main.cpp
 )
 
