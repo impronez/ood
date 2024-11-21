@@ -6,29 +6,34 @@
 
 namespace with_state
 {
-    class CNoQuarterState final : public IState // монета не вставлена
+    class CNoQuarterState final : public IState
     {
     public:
         explicit CNoQuarterState(IGumballMachine & gumballMachine)
             : m_gumballMachine(gumballMachine)
         {}
 
+        void InsertGumballs(unsigned count) override
+        {
+            m_gumballMachine.AddGumballs(count);
+        }
+
         void InsertQuarter() override
         {
-            std::cout << "You inserted a quarter\n";
+            m_gumballMachine.AddQuarter();
             m_gumballMachine.SetHasQuarterState();
         }
         void EjectQuarter() override
         {
-            std::cout << "You haven't inserted a quarter\n";
+            m_gumballMachine.ReleaseAllQuarters();
         }
         void TurnCrank() override
         {
-            std::cout << "You turned but there's no quarter\n";
+            m_gumballMachine.OutputInfo("You turned but there's no quarter");
         }
         void Dispense() override
         {
-            std::cout << "You need to pay first\n";
+            m_gumballMachine.OutputInfo("You need to pay first");
         }
         [[nodiscard]] std::string ToString() const override
         {

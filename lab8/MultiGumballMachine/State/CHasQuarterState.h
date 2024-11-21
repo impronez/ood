@@ -13,23 +13,29 @@ namespace with_state
             :m_gumballMachine(gumballMachine)
         {}
 
+        void InsertGumballs(unsigned count) override
+        {
+            m_gumballMachine.AddGumballs(count);
+        }
+
         void InsertQuarter() override
         {
-            std::cout << "You can't insert another quarter\n";
+            m_gumballMachine.AddQuarter();
         }
         void EjectQuarter() override
         {
-            std::cout << "Quarter returned\n";
+            m_gumballMachine.ReleaseAllQuarters();
             m_gumballMachine.SetNoQuarterState();
         }
         void TurnCrank() override
         {
-            std::cout << "You turned...\n";
+            m_gumballMachine.OutputInfo("You turned...");
             m_gumballMachine.SetSoldState();
+            m_gumballMachine.Dispense();
         }
         void Dispense() override
         {
-            std::cout << "No gumball dispensed\n";
+            m_gumballMachine.OutputInfo("No gumball dispensed");
         }
         [[nodiscard]] std::string ToString() const override
         {
