@@ -1,5 +1,7 @@
 #include <iostream>
+#include <memory>
 
+#include "CommandHandler.h"
 #include "Machine/CMultiGumballMachine.h"
 
 using namespace std;
@@ -39,17 +41,12 @@ void TestGumballMachine(GumballMachineType & m)
     cout << m.ToString() << endl;
 }
 
-void TestGumballMachineWithState()
-{
-    with_state::CMultiGumballMachine m(5);
-    TestGumballMachine(m);
-}
-
 int main()
 {
-    TestGumballMachineWithState();
+    auto gumballMachine = std::make_unique<with_state::CMultiGumballMachine>(5, std::cout);
 
-    cout << "\n-----------------\n";
+    CommandHandler handler((std::move(gumballMachine)));
+    handler.Run();
 
     return 0;
 }

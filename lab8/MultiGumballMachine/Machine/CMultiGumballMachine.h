@@ -13,15 +13,16 @@ namespace with_state
     class CMultiGumballMachine final : private IGumballMachine
     {
     public:
-        explicit CMultiGumballMachine(unsigned numBalls)
+        explicit CMultiGumballMachine(unsigned numBalls, std::ostream& out)
             : m_soldState(*this)
             , m_soldOutState(*this)
             , m_noQuarterState(*this)
             , m_hasQuarterState(*this)
             , m_state(&m_soldOutState)
-            , m_quarterCount(numBalls)
+            , m_gumballCount(numBalls)
+            , m_out(out)
         {
-            if (m_quarterCount > 0)
+            if (m_gumballCount > 0)
             {
                 m_state = &m_noQuarterState;
             }
@@ -37,10 +38,14 @@ namespace with_state
             m_state->InsertQuarter();
         }
 
+        void InsertGumballs(unsigned count) const
+        {
+            m_state->InsertGumballs(count);
+        }
+
         void TurnCrank() const
         {
             m_state->TurnCrank();
-            m_state->Dispense();
         }
 
         [[nodiscard]] std::string ToString() const
@@ -51,8 +56,8 @@ C++-enabled Standing Gumball Model #2016 (with state)
 Inventory: {} gumball{}
 Machine is {}
 )",
-                m_quarterCount,
-                (m_quarterCount != 1 ? "s" : ""),
+                m_gumballCount,
+                (m_gumballCount != 1 ? "s" : ""),
                 m_state->ToString()
             );
         }
@@ -62,10 +67,20 @@ Machine is {}
             return m_quarterCount;
         }
 
-    private:
         [[nodiscard]] unsigned GetBallCount() const override
         {
             return m_gumballCount;
+        }
+
+    private:
+
+        void AddGumballs(unsigned count) override
+        {
+            if (count != 0)
+            {
+                m_gumballCount += count;
+                m_out << "You inserted a gumballs" << std::endl;
+            }
         }
 
         void Dispense() override
@@ -75,10 +90,23 @@ Machine is {}
 
         void ReleaseBall() override
         {
-            if (m_quarterCount != 0)
+            if (m_gumballCount != 0)
             {
-                std::cout << "A gumball comes rolling out the slot...\n";
-                --m_quarterCount;
+                m_out << "A gumball comes rolling out the slot...\n";
+                --m_gumballCount;
+            }
+        }
+
+        void ReleaseAllQuarters() override
+        {
+            if (m_quarterCount > 0)
+            {
+                m_out << "Quarters are ejected\n";
+                m_quarterCount = 0;
+            }
+            else
+            {
+                m_out << "Quarters are not inserted\n";
             }
         }
 
@@ -107,29 +135,26 @@ Machine is {}
             if (m_quarterCount < MAX_QUARTER_COUNT)
             {
                 ++m_quarterCount;
+                m_out << "You inserted a quarter. Count quarter is " << m_quarterCount << std::endl;
             }
             else
             {
-                std::cout << "Quarter count is max (" << MAX_QUARTER_COUNT << ")\n";
+                m_out << "Quarter don't added. Quarter count is max (" << MAX_QUARTER_COUNT << ")\n";
             }
-        }
-
-        void ReleaseAllQuarters() override
-        {
-            m_quarterCount = 0;
         }
 
         void TakeQuarter() override
         {
             if (m_quarterCount > 0)
             {
-                std::cout << "A quarter was taked from machine\n";
                 --m_quarterCount;
+                m_out << "A quarter was taked in machine. Quarter count is " << m_quarterCount << std::endl;
             }
-            else
-            {
-                std::cout << "Count quarter is 0\n";
-            }
+        }
+
+        void OutputInfo(const std::string &info) override
+        {
+            m_out << info << std::endl;
         }
 
         static constexpr unsigned MAX_QUARTER_COUNT = 5;
@@ -143,5 +168,7 @@ Machine is {}
         CHasQuarterState m_hasQuarterState;
 
         IState* m_state;
+
+        std::ostream& m_out;
     };
 }
