@@ -1,0 +1,9 @@
+SetTitle My new Title
+InsertImage end 100 400 output.jpg
+ResizeImage 1 400 400
+ResizeImage 1 900 400
+InsertParagraph end Hello, world
+ReplaceText 2 Hello, World
+ReplaceText 2 Hello, World!
+InsertParagraph end 123
+DeleteItem 3
