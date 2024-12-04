@@ -66,6 +66,7 @@ public:
 
         while (x >= y)
         {
+            // TODO: Как работает алгоритм Брэзенхема
             image.SetPixel({ center.x + x, center.y - y }, color);
             image.SetPixel({ center.x + x, center.y + y }, color);
             image.SetPixel({ center.x - x, center.y - y }, color);
@@ -73,7 +74,7 @@ public:
             image.SetPixel({ center.x + y, center.y - x }, color);
             image.SetPixel({ center.x + y, center.y + x }, color);
             image.SetPixel({ center.x - y, center.y - x }, color);
-            image.SetPixel({ center.x - y, center.y + x		}, color);
+            image.SetPixel({ center.x - y, center.y + x }, color);
 
             y++;
 
@@ -97,17 +98,12 @@ public:
 
         while (x >= y)
         {
-            for (int i = center.x - x; i <= center.x + x; ++i)
-            {
-                image.SetPixel({ i, center.y - y }, color);
-                image.SetPixel({ i, center.y + y }, color);
-            }
+            //TOOD: доработать так, чтобы не рисовала по нарисованным линиям
+            DrawLine(image, {center.x - x, center.y - y }, {center.x + x, center.y - y }, color);
+            DrawLine(image, {center.x - y, center.y - x }, {center.x + y, center.y - x }, color);
 
-            for (int i = center.x - y; i <= center.x + y; ++i)
-            {
-                image.SetPixel({ i, center.y - x }, color);
-                image.SetPixel({ i, center.y + x }, color);
-            }
+            DrawLine(image, {center.x - x, center.y + y }, {center.x + x, center.y + y }, color);
+            DrawLine(image, {center.x - y, center.y + x }, {center.x + y, center.y + x }, color);
 
             y++;
 
