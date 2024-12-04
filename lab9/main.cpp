@@ -20,7 +20,7 @@ int main()
         Image image({ 50, 50 }, '.');
 
         Drawer::DrawCircle(image, {24, 24}, 12, '#');
-        Drawer::FillCircle(image, {24, 24}, 12, '#');
+        Drawer::FillCircle(image, {24, 24}, 10, '#');
 
         Drawer::DrawLine(image, {0, 25}, {11, 25}, '#');
         Drawer::DrawLine(image, {37, 25}, {49, 25}, '#');
@@ -43,7 +43,7 @@ int main()
         Image image({ 50, 50 }, 0);
 
         Drawer::DrawCircle(image, {24, 24}, 12, 0xFFFF00);
-        Drawer::FillCircle(image, {24, 24}, 12, 0xFFFF00);
+        Drawer::FillCircle(image, {24, 24}, 11, 0xFFFF00);
 
         Drawer::DrawLine(image, {0, 25}, {11, 25}, 0xFFFF00);
         Drawer::DrawLine(image, {37, 25}, {49, 25}, 0xFFFF00);
