@@ -14,7 +14,6 @@ public:
     // Конструктор по умолчанию. Заполняет тайл указанным цветом.
     explicit Tile(uint32_t color = 0) noexcept
     {
-        /* Реализуйте недостающий код самостоятельно. */
         for (int y = 0; y < SIZE; ++y)
         {
             for (int x = 0; x < SIZE; ++x)
@@ -31,7 +30,6 @@ public:
 
     Tile(const Tile& other)
     {
-        /* Реализуйте недостающий код самостоятельно. */
         m_pixels = other.m_pixels;
         // -------------- не удалять ------------
         assert(m_instanceCount >= 0);
@@ -56,7 +54,7 @@ public:
         /* Реализуйте недостающий код самостоятельно. */
         if (IsValidPoint(p))
         {
-            m_pixels[p.y][p.x] = color; // Устанавливаем цвет пикселя
+            m_pixels[p.y][p.x] = color;
         }
     }
 
